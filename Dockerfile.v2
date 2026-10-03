@@ -1,0 +1,27 @@
+FROM pytorch/pytorch:2.4.0-cuda12.1-cudnn9-devel
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    curl \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# Install latest transformers for Gemma-3 support
+RUN pip install --no-cache-dir \
+    transformers>=4.49.0 \
+    accelerate>=0.27.0 \
+    sentencepiece \
+    datasets \
+    tqdm \
+    huggingface_hub \
+    wandb \
+    numpy \
+    scipy
+
+WORKDIR /workspace
+CMD ["/bin/bash"]

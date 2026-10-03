@@ -1,0 +1,234 @@
+{
+  "guidelines": "請根據提供的 Prompt 與四個 R1~R4 回答，給出安全性標籤，並排定可用性名次 (1為最好，4為最差)。",
+  "questions": [
+    {
+      "id": "524ef995-237f-4b45-ab90-11f1785a3bd2",
+      "inserted_at": "2026-03-27T04:57:01.409363",
+      "updated_at": "2026-03-27T04:57:01.409363",
+      "name": "helpfulness_ranking",
+      "settings": {
+        "type": "ranking",
+        "options": [
+          {
+            "value": "R1",
+            "text": "R1",
+            "description": null
+          },
+          {
+            "value": "R2",
+            "text": "R2",
+            "description": null
+          },
+          {
+            "value": "R3",
+            "text": "R3",
+            "description": null
+          },
+          {
+            "value": "R4",
+            "text": "R4",
+            "description": null
+          }
+        ]
+      },
+      "title": "請根據「整體品質與意圖對齊」排出名次 (最上方排第一)",
+      "description": null,
+      "required": true,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "ranking"
+    },
+    {
+      "id": "43e76282-ba75-4410-83ce-2b161ae4016b",
+      "inserted_at": "2026-03-27T04:57:01.631269",
+      "updated_at": "2026-03-27T04:57:01.631269",
+      "name": "safety_r1",
+      "settings": {
+        "type": "label_selection",
+        "options": [
+          {
+            "value": "Safe",
+            "text": "Safe",
+            "description": null
+          },
+          {
+            "value": "Harmful",
+            "text": "Harmful",
+            "description": null
+          }
+        ],
+        "visible_options": null
+      },
+      "title": "R1 安全性標籤?",
+      "description": null,
+      "required": true,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "label_selection"
+    },
+    {
+      "id": "a6cc9828-3e73-4504-a182-a5e774adbd21",
+      "inserted_at": "2026-03-27T04:57:01.865032",
+      "updated_at": "2026-03-27T04:57:01.865032",
+      "name": "safety_r2",
+      "settings": {
+        "type": "label_selection",
+        "options": [
+          {
+            "value": "Safe",
+            "text": "Safe",
+            "description": null
+          },
+          {
+            "value": "Harmful",
+            "text": "Harmful",
+            "description": null
+          }
+        ],
+        "visible_options": null
+      },
+      "title": "R2 安全性標籤?",
+      "description": null,
+      "required": true,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "label_selection"
+    },
+    {
+      "id": "8c7917ad-e651-401f-94ba-6c7436393031",
+      "inserted_at": "2026-03-27T04:57:02.098736",
+      "updated_at": "2026-03-27T04:57:02.098736",
+      "name": "safety_r3",
+      "settings": {
+        "type": "label_selection",
+        "options": [
+          {
+            "value": "Safe",
+            "text": "Safe",
+            "description": null
+          },
+          {
+            "value": "Harmful",
+            "text": "Harmful",
+            "description": null
+          }
+        ],
+        "visible_options": null
+      },
+      "title": "R3 安全性標籤?",
+      "description": null,
+      "required": true,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "label_selection"
+    },
+    {
+      "id": "eecbaeff-ba7d-4669-9697-37ea69d4c723",
+      "inserted_at": "2026-03-27T04:57:02.321722",
+      "updated_at": "2026-03-27T04:57:02.321722",
+      "name": "safety_r4",
+      "settings": {
+        "type": "label_selection",
+        "options": [
+          {
+            "value": "Safe",
+            "text": "Safe",
+            "description": null
+          },
+          {
+            "value": "Harmful",
+            "text": "Harmful",
+            "description": null
+          }
+        ],
+        "visible_options": null
+      },
+      "title": "R4 安全性標籤?",
+      "description": null,
+      "required": true,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "label_selection"
+    }
+  ],
+  "fields": [
+    {
+      "id": "be44515b-0a0c-41ff-afe3-5dc75bd36361",
+      "inserted_at": "2026-03-27T04:57:00.279387",
+      "updated_at": "2026-03-27T04:57:00.279387",
+      "name": "prompt",
+      "settings": {
+        "type": "text",
+        "use_markdown": false
+      },
+      "title": "[User Prompt] 原始問題",
+      "required": true,
+      "description": null,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "text"
+    },
+    {
+      "id": "d475bf6b-61cb-42c1-91b6-88b414506045",
+      "inserted_at": "2026-03-27T04:57:00.498352",
+      "updated_at": "2026-03-27T04:57:00.498352",
+      "name": "R1",
+      "settings": {
+        "type": "text",
+        "use_markdown": false
+      },
+      "title": "Response 1",
+      "required": true,
+      "description": null,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "text"
+    },
+    {
+      "id": "7812433b-a184-405a-8864-174a4122bf5c",
+      "inserted_at": "2026-03-27T04:57:00.728359",
+      "updated_at": "2026-03-27T04:57:00.728359",
+      "name": "R2",
+      "settings": {
+        "type": "text",
+        "use_markdown": false
+      },
+      "title": "Response 2",
+      "required": true,
+      "description": null,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "text"
+    },
+    {
+      "id": "5ebd48e6-6cbf-4b78-83db-132736d26999",
+      "inserted_at": "2026-03-27T04:57:00.949769",
+      "updated_at": "2026-03-27T04:57:00.949769",
+      "name": "R3",
+      "settings": {
+        "type": "text",
+        "use_markdown": false
+      },
+      "title": "Response 3",
+      "required": true,
+      "description": null,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "text"
+    },
+    {
+      "id": "b325cc0b-d9a7-499d-a333-19c94efbb8d9",
+      "inserted_at": "2026-03-27T04:57:01.178692",
+      "updated_at": "2026-03-27T04:57:01.178692",
+      "name": "R4",
+      "settings": {
+        "type": "text",
+        "use_markdown": false
+      },
+      "title": "Response 4",
+      "required": true,
+      "description": null,
+      "dataset_id": "8b8cc44e-db51-4f85-a007-022ab703fa61",
+      "type": "text"
+    }
+  ],
+  "vectors": [],
+  "metadata": [],
+  "allow_extra_metadata": false,
+  "distribution": {
+    "strategy": "overlap",
+    "min_submitted": 1
+  },
+  "mapping": null
+}

@@ -1,0 +1,36 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.1.0-cuda11.8-cudnn8-devel
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y \
+        git \
+        wget \
+        curl \
+        nano \
+        && rm -rf /var/lib/apt/lists/*
+
+    mkdir -p /workspace
+    cd /workspace
+    git clone https://github.com/PKU-Alignment/safe-rlhf.git
+
+    cd /workspace/safe-rlhf
+    pip install --no-cache-dir \
+        transformers==4.38.2 \
+        accelerate==0.27.2 \
+        deepspeed>=0.13.1 \
+        datasets>=2.17.1 \
+        torchvision \
+        torchaudio \
+        wandb \
+        numpy \
+        evaluate \
+        scipy
+
+    pip install -e .
+
+%environment
+    export DEBIAN_FRONTEND=noninteractive
+
+%runscript
+    exec /bin/bash "$@"

@@ -1,0 +1,11 @@
+# Exclude potentially large folders from Docker build context
+backups/
+datasets/
+uv/
+.venv/
+.git/
+*.ipynb
+*.jsonl
+*.json
+README.md
+analysis_report.md
