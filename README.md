@@ -68,6 +68,35 @@ Over-refusal: 1 and 2 of 21 answer-expected clusters for the adapter arms, 0 for
 The intervals are too wide to settle the cost.
 </details>
 
+## Method
+
+The policy is trained with PPO-Lagrange, ported from
+[PKU-Alignment/safe-rlhf](https://github.com/PKU-Alignment/safe-rlhf). It solves a constrained problem:
+
+```text
+maximize over the policy   E[ R(x, y) ]      R: reward model (helpfulness)
+subject to                 E[ C(x, y) ] ≤ d   C: cost model (safety), d: threshold
+```
+
+Relaxing the constraint with a multiplier λ ≥ 0 gives the Lagrangian `E[R] − λ (E[C] − d)`, which the
+trainer optimizes in alternation:
+
+- **Policy step.** Per-token advantages come from GAE on KL-shaped rewards and costs (a per-token KL
+  penalty to the reference policy, scores clipped). The two advantages are combined as
+  `(A_R − λ · A_C) / (1 + λ)` and used in a clipped PPO surrogate.
+- **Multiplier step.** λ is a log-space parameter updated by SGD on the windowed mean episode cost, so it
+  grows while the cost is above `d` and shrinks while it is below. It is clipped at a maximum. The class
+  defaults are λ₀ = 1, learning rate 0.1 and cap 5. The operative threshold is −4.427, calibrated from
+  the policy's own generations (see below).
+- **Models.** The actor is a LoRA adapter on the frozen 8B base (adapter off is the reference policy). The RM
+  and CM, on a Ministral-3-3B backbone, are frozen scorers. A reward critic and a cost critic are initialized
+  from them and trained together with the actor.
+
+PPO-Lagrange was not the first integration. Gate-and-rank came first (`docs/adr/0002`): at inference time the
+cost model rejects unsafe candidates and the reward model ranks the rest. An early reward model had about 0.60
+by-prompt accuracy, which invites reward hacking under PPO, while in gate-and-rank a weak reward model can
+only mis-rank candidates that are already safe.
+
 ## Pipeline
 
 ```mermaid
@@ -89,7 +118,7 @@ flowchart TB
 
 The two shaded nodes are the two places a safety mechanism can be inserted. The project compares
 them. The RM and CM share a `Ministral-3-3B-Instruct-2512` backbone with a scalar score head.
-PPO trains only the actor's LoRA adapter and never retrains the RM or CM. The harmful-prompt
+PPO trains the actor's LoRA adapter and two critics initialized from the RM and CM. It never retrains the RM or CM themselves. The harmful-prompt
 generator has its own repository:
 [airflow-datagen-harmful-prompt](https://github.com/bubbleee030/airflow-datagen-harmful-prompt).
 
